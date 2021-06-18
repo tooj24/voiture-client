@@ -1,8 +1,10 @@
-import { USER_URL, fetchRes } from "./api"
+import axios from 'axios';
+import { USER_URL } from "./api"
 
 function create(data: any) {
-  return fetchRes(`${USER_URL}`, 'POST', data)
-    .then(data => data)
+  return axios
+    .post(`${USER_URL}`, data)
+    .then(resp => resp.data)
 }
 
 export const userService = {

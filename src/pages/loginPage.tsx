@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { Field } from '../components/Field';
 import authContext from '../context/AuthContext';
 import { authService } from '../services/authService';
 
-const LoginPage = () => {
+const LoginPage = ({ history }: RouteComponentProps) => {
   const { setIsAuthenticated } = useContext(authContext);
   const [credentials, setCredentials] = useState({
     email: "",
@@ -16,6 +17,7 @@ const LoginPage = () => {
   const handleChange = ({ currentTarget }: any) => {
     const { value, name } = currentTarget;
     setCredentials({ ...credentials, [name]: value });
+    setError("");
   };
 
   // soumission du formulaire
@@ -25,35 +27,50 @@ const LoginPage = () => {
       await authService.authenticate(credentials);
       setError("");
       setIsAuthenticated(true);
+      history.replace('/');
     } catch ({ error }: any) {
-      setError(error)
+      setError("Identifiant invalide")
+    }
   }
-}
 
-return (
-  <form onSubmit={handleSubmit}>
-    {console.log('render')}
-    <Field
-      label="Email"
-      name="email"
-      type="text"
-      placeholder="Email"
-      value={credentials.email}
-      error={error}
-      onChange={handleChange}
-    />
-    <Field
-      label="Mot de passe"
-      name="password"
-      type="password"
-      placeholder="Mot de passe"
-      value={credentials.password}
-      error={""}
-      onChange={handleChange}
-    />
-    <button type="submit">Connexion</button>
-  </form>
-)
+  return (
+    <form onSubmit={handleSubmit} className="row d-flex justify-content-center">
+      <div className="col-md-6">
+        {
+          error && <div className="alert alert-danger">
+            <p>{error}</p>
+          </div>
+        }
+        <h1 className="text-center">Connexion</h1>
+        <Field
+          label="Email"
+          name="email"
+          type="text"
+          placeholder="Email"
+          value={credentials.email}
+          error={""}
+          onChange={handleChange}
+        />
+        <Field
+          label="Mot de passe"
+          name="password"
+          type="password"
+          placeholder="Mot de passe"
+          value={credentials.password}
+          error={""}
+          onChange={handleChange}
+        />
+        <div className="row">
+          <div className="col-md-6">
+            <button type="submit" className="btn btn-block btn-primary">Envoyer</button>
+          </div>
+          <div className="col-md-6">
+            <Link to="/registration" className="btn btn-block btn-success">Créer une compte</Link>
+          </div>
+        </div>
+      </div>
+    </form>
+  )
 };
 
 export default LoginPage;

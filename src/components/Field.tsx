@@ -20,7 +20,7 @@ const Field = ({ name, label, value, onChange, type, placeholder, error }: Props
       placeholder={placeholder || label}
       name={name}
       id={name}
-      className={"form-control" + (error && " is-invalid")}
+      className={"form-control " + (error && " is-invalid")}
     />
     {error && <p className="invalid-feedback">{error}</p>}
   </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Field } from '../components/Field';
 import { userService } from '../services/userService';
@@ -31,7 +32,6 @@ const RegisterPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const apiErrors: any = {};
-    console.log(credentials)
 
     if (credentials.password !== credentials.passwordConfirm) {
       apiErrors.passwordConfirm =
@@ -41,73 +41,97 @@ const RegisterPage = () => {
     }
     try {
       await userService.create(credentials)
-      console.log(credentials);
-    } catch (error) {
-      const { errors } = error;
-      
-      // apiErrors[e.name] = e.message
-      console.log(errors);
+    } catch ({ response }) {
+      const { errors: violations } = response.data;
+
+      if (violations) {
+        violations.forEach(({ param, msg }: any) => {
+          apiErrors[param] = msg;
+        });
+      }
       setErrors(apiErrors);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Field
-        label="Email"
-        name="email"
-        type="text"
-        placeholder="Email"
-        value={credentials.email}
-        error={errors.email}
-        onChange={handleChange}
-      />
-      <Field
-        label="Pseudo"
-        name="pseudo"
-        type="text"
-        placeholder="Pseudo"
-        value={credentials.pseudo}
-        error={errors.pseudo}
-        onChange={handleChange}
-      />
-      <Field
-        label="Firstname"
-        name="firstname"
-        type="text"
-        placeholder="Firstname"
-        value={credentials.firstname}
-        error={errors.firstname}
-        onChange={handleChange}
-      />
-      <Field
-        label="Lastname"
-        name="lastname"
-        type="text"
-        placeholder="Lastname"
-        value={credentials.lastname}
-        error={errors.lastname}
-        onChange={handleChange}
-      />
-      <Field
-        label="Mot de passe"
-        name="password"
-        type="password"
-        placeholder="Mot de passe"
-        value={credentials.password}
-        error={errors.password}
-        onChange={handleChange}
-      />
-      <Field
-        label="Confirmer le mot de passe"
-        name="passwordConfirm"
-        type="password"
-        placeholder="Mot de passe"
-        value={credentials.passwordConfirm}
-        error={errors.passwordConfirm}
-        onChange={handleChange}
-      />
-      <button type="submit">Envoyer</button>
+    <form onSubmit={handleSubmit} className="row d-flex justify-content-center">
+      <div className="col-md-6">
+        <h1 className="text-center">Registration</h1>
+        <Field
+          label="Email"
+          name="email"
+          type="text"
+          placeholder="Email"
+          value={credentials.email}
+          error={errors.email}
+          onChange={handleChange}
+        />
+        <Field
+          label="Pseudo"
+          name="pseudo"
+          type="text"
+          placeholder="Pseudo"
+          value={credentials.pseudo}
+          error={errors.pseudo}
+          onChange={handleChange}
+        />
+        <div className="row">
+          <div className="col-md-6">
+            <Field
+              label="Firstname"
+              name="firstname"
+              type="text"
+              placeholder="Firstname"
+              value={credentials.firstname}
+              error={errors.firstname}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <Field
+              label="Lastname"
+              name="lastname"
+              type="text"
+              placeholder="Lastname"
+              value={credentials.lastname}
+              error={errors.lastname}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <Field
+              label="Mot de passe"
+              name="password"
+              type="password"
+              placeholder="Mot de passe"
+              value={credentials.password}
+              error={errors.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6">
+            <Field
+              label="Confirmer le mot de passe"
+              name="passwordConfirm"
+              type="password"
+              placeholder="Mot de passe"
+              value={credentials.passwordConfirm}
+              error={errors.passwordConfirm}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <button type="submit" className="btn btn-block btn-primary">Envoyer</button>
+          </div>
+          <div className="col-md-6">
+            <Link to="/connexion" className="btn btn-block btn-success">Se connecter</Link>
+          </div>
+        </div>
+      </div>
     </form>
   )
 }
