@@ -9,6 +9,9 @@ import VoituresPage from './pages/voituresPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
+import VoiturePage from './pages/voiturePage';
+
+authService.setup();
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(authService.isAuthenticated());
@@ -25,6 +28,7 @@ const App = () => {
           <Switch>
             <Route path="/connexion" component={LoginPage} />
             <Route path="/registration" component={RegisterPage} />
+            <Route path="/voitures/:id" component={VoiturePage} />
             <Route path="/" component={VoituresPage} />
           </Switch>
         </div>

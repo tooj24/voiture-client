@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { voitureService } from '../services/voitureService';
 import { Voiture } from '../models/voiture';
+import { NavLink } from 'react-router-dom';
 
 const VoituresPage = () => {
   const [voitures, setVoitures] = useState<Voiture[]>([]);
@@ -28,8 +29,9 @@ const VoituresPage = () => {
             <div className="card-body">
               <h1 className="card-title pricing-card-title">${v.price} </h1>
               <p>
-                {v.description}
+                {v.description.substr(0, 100) + " ..."}
               </p>
+              <NavLink to={"/voitures/" + v._id}>Voir détails</NavLink>
             </div>
           </div>
         </div>

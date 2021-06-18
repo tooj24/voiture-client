@@ -42,7 +42,7 @@ function isAuthenticated() {
   const token = window.localStorage.getItem('authToken');
 
   if (token) {
-    const { exp: expiration }: any = jwtDecode(token);
+    const {exp: expiration}: any = jwtDecode(token);
     if (expiration * 1000 > new Date().getTime()) {
       return true;
     }
@@ -55,5 +55,6 @@ function isAuthenticated() {
 export const authService = {
   authenticate,
   logout,
-  isAuthenticated
+  isAuthenticated,
+  setup
 }

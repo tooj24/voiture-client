@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { authService } from '../services/authService';
-import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 
 const Header = () => {
@@ -20,18 +19,18 @@ const Header = () => {
       </nav>
       {
         !isAuthenticated
-        && (
-          <NavLink
-            className="btn btn-outline-primary"
-            to="/connexion"
-          >Connexioin</NavLink>
-        )
-        || (
-          <button
-            className="btn btn-outline-danger"
-            onClick={handleLogout}
-          >Déconnexioin</button>
-        )
+          ? (
+            <NavLink
+              className="btn btn-outline-primary"
+              to="/connexion"
+            >Connexioin</NavLink>
+          )
+          : (
+            <button
+              className="btn btn-outline-danger"
+              onClick={handleLogout}
+            >Déconnexioin</button>
+          )
       }
 
 

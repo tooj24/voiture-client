@@ -1,0 +1,8 @@
+.comment {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.comment strong{
+  display: block;
+}
