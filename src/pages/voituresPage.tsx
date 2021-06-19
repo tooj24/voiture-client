@@ -26,7 +26,9 @@ const VoituresPage = () => {
   return (
     <>
       <div className="row card-deck mb-3 text-center">
-        {voitures && voitures.map((v, i) => (
+        {voitures.length === 0 && <p>Aucune publication</p>}
+        
+        {voitures.map((v, i) => (
           <div key={i} className="col-md-4">
             <div key={i} className="card mb-4 shadow-sm" style={{ minHeight: '290px' }}>
               <div className="card-header">
@@ -43,24 +45,26 @@ const VoituresPage = () => {
           </div>
         ))}
       </div>
-      <ul className="pagination d-flex justify-content-center">
-        <li className={"page-item " + (page === 1 && "disabled")}>
-          <button
-            className="page-link"
-            onClick={() => setPage(page - 1)}
-          >
-            <span aria-hidden="true">&laquo;</span> Prec
+      {voitures.length !== 0 && (
+        <ul className="pagination d-flex justify-content-center">
+          <li className={"page-item " + (page === 1 && "disabled")}>
+            <button
+              className="page-link"
+              onClick={() => setPage(page - 1)}
+            >
+              <span aria-hidden="true">&laquo;</span> Prec
           </button>
-        </li>
-        <li className={"page-item " + (page === pages && "disabled")}>
-          <button
-            className="page-link"
-            onClick={() => setPage(page + 1)}
-          >
-            Suiv <span aria-hidden="true">&raquo;</span>
-          </button>
-        </li>
-      </ul>
+          </li>
+          <li className={"page-item " + (page === pages && "disabled")}>
+            <button
+              className="page-link"
+              onClick={() => setPage(page + 1)}
+            >
+              Suiv <span aria-hidden="true">&raquo;</span>
+            </button>
+          </li>
+        </ul>
+      )}
     </>
   )
 };

@@ -71,6 +71,7 @@ const VoitureForm = ({ history }: RouteComponentProps) => {
         <TextArea
           name="description"
           label="Description"
+          placeholder="Decription"
           value={voiture.description}
           error={errors.description}
           onChange={handleChange}

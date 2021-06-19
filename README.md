@@ -1,3 +1,7 @@
+# Description
+Catalogues de voitures
+Les utilisateurs connectés peuvent faire de publication, commenter
+
 # Requirements
 node & yarn
 

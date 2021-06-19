@@ -10,19 +10,23 @@ interface Props {
 
 const CommentForm = ({ value, error, onChange, onComment }: Props) => {
   return (
-    <>
-      <TextArea
-        name="comment"
-        label="Votre commentaire"
-        value={value}
-        onChange={onChange}
-        error={error}
-      />
-      <button
-        className="btn btn-sm btn-success"
-        onClick={onComment}
-      >Commenter</button>
-    </>
+    <div className="row">
+      <div className="col-md-9">
+        <TextArea
+          name="comment"
+          value={value}
+          placeholder="Votre commentaire"
+          onChange={onChange}
+          error={error}
+        />
+      </div>
+      <div className="col-md-3">
+        <button
+          className="btn btn-sm btn-success"
+          onClick={onComment}
+        >Commenter</button>
+      </div>
+    </div>
   );
 };
 

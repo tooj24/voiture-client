@@ -2,9 +2,9 @@ import React from 'react';
 
 interface Props {
   name: string;
-  label: string;
+  label?: string;
   value: string | number;
-  placeholder?: string;
+  placeholder: string;
   error: string;
   onChange: (e: any) => void;
 }
@@ -12,7 +12,7 @@ interface Props {
 const TextArea = ({ name, label, value, placeholder, error, onChange, ...props }: Props) => {
   return (
     <div className="form-group">
-      <label htmlFor="comment">{label}</label>
+      {label && <label htmlFor="comment">{label}</label>}
       <textarea
         id={name}
         name={name}
