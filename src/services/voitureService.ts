@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { VOITURE_URL } from "./api"
 
-function findAll(page: number = 0) {
+function findAll(page: number) {
   return axios
     .get(`${VOITURE_URL}/?page=${page}`)
     .then(resp => resp.data)

@@ -19,9 +19,9 @@ const CommentForm = ({ value, error, onChange, onComment }: Props) => {
         error={error}
       />
       <button
-        className="btn btn-primary"
+        className="btn btn-sm btn-success"
         onClick={onComment}
-      >Envoyer</button>
+      >Commenter</button>
     </>
   );
 };

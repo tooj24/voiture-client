@@ -7,9 +7,9 @@ function comment(voitureId: string, data: any) {
     .then(resp => resp.data);
 }
 
-function getAll(voitureId: string) {
+function getAll(voitureId: string, page: number = 0) {
   return axios
-    .get(`${COMMENT_URL}/${voitureId}`)
+    .get(`${COMMENT_URL}/${voitureId}/${page}`)
     .then(resp => resp.data);
 }
 

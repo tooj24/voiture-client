@@ -29,6 +29,10 @@ const VoiturePage = ({ match }: RouteComponentProps<Params>) => {
   // commentaires
   const [comments, setComments] = useState<Comment[]>([]);
   const [show, setShow] = useState(false);
+  // pagination commentaire
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(0);
+  const [total, setTotal] = useState(0);
 
   // récuperer le voiture ayant id <id>
   const fetchVoiture = async (id: string) => {
@@ -45,6 +49,7 @@ const VoiturePage = ({ match }: RouteComponentProps<Params>) => {
     try {
       const comment: Comment = await commentService.comment(id, { content })
       setContent("");
+      setTotal(t => t + 1);
       setComments(comments => [comment, ...comments])
     } catch (error) {
 
@@ -53,8 +58,11 @@ const VoiturePage = ({ match }: RouteComponentProps<Params>) => {
 
   // afficher les commentaires
   const showComment = async () => {
-    const data = await commentService.getAll(id);
-    setComments(data);
+    const { comments, page: p, pages, total } = await commentService.getAll(id, page);
+    setComments(c => [...c, ...comments]);
+    setPage(p + 1);
+    setPages(pages);
+    setTotal(total);
     setShow(true);
   };
 
@@ -70,7 +78,6 @@ const VoiturePage = ({ match }: RouteComponentProps<Params>) => {
 
   return (
     <div>
-
       <div className="card">
         {/* <img src="..." className="card-img-top" alt="..." /> */}
         <div className="card-body">
@@ -96,23 +103,32 @@ const VoiturePage = ({ match }: RouteComponentProps<Params>) => {
         isAuthenticated && show &&
         (
           <>
-            <h3 className="mt-3">{comments.length} commentaire(s)</h3>
+            <h3 className="mt-3">{total} commentaire(s)</h3>
 
             <CommentForm
               value={content}
               error={error}
               onChange={e => handleChange(e)}
-              onComment={handleComment} />
+              onComment={handleComment}
+            />
 
             {
               comments.map((c, i) => (
                 <CommentContent key={i} comment={c} />
               ))
             }
+            {
+              (comments.length !== 0 && page <= pages) &&
+              (
+                <button
+                  className="btn  btn-sm btn-primary"
+                  onClick={showComment}
+                >Plus de commentaires</button>
+              )
+            }
           </>
         )
       }
-
 
     </div>
   )

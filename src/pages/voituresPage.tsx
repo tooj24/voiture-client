@@ -6,16 +6,16 @@ import { NavLink } from 'react-router-dom';
 const VoituresPage = () => {
   const [voitures, setVoitures] = useState<Voiture[]>([]);
   // pagination
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [pages, setPages] = useState(0);
 
   // récuperer la liste des voitures
-  const fetchVoitures = async (p: number = 1) => {
+  const fetchVoitures = async (p: number) => {
     try {
       const { voitures, page, pages } = await voitureService.findAll(p);
       setVoitures(voitures);
-      setPage(+page);
-      setPages(+pages);
+      setPage(page);
+      setPages(pages);
     } catch (error) { }
   };
 
@@ -44,7 +44,7 @@ const VoituresPage = () => {
         ))}
       </div>
       <ul className="pagination d-flex justify-content-center">
-        <li className={"page-item " + (page === 0 && "disabled")}>
+        <li className={"page-item " + (page === 1 && "disabled")}>
           <button
             className="page-link"
             onClick={() => setPage(page - 1)}
