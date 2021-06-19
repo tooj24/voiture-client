@@ -78,10 +78,10 @@ const RegisterPage = () => {
         <div className="row">
           <div className="col-md-6">
             <Field
-              label="Firstname"
+              label="Prénom"
               name="firstname"
               type="text"
-              placeholder="Firstname"
+              placeholder="Prénom"
               value={credentials.firstname}
               error={errors.firstname}
               onChange={handleChange}
@@ -89,10 +89,10 @@ const RegisterPage = () => {
           </div>
           <div className="col-md-6">
             <Field
-              label="Lastname"
+              label="Nom"
               name="lastname"
               type="text"
-              placeholder="Lastname"
+              placeholder="Nom"
               value={credentials.lastname}
               error={errors.lastname}
               onChange={handleChange}

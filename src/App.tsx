@@ -10,6 +10,8 @@ import VoituresPage from './pages/voituresPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import VoiturePage from './pages/voiturePage';
+import VoitureForm from './pages/VoitureForm';
+import PrivateRoute from './components/PrivateRoute';
 
 authService.setup();
 
@@ -29,6 +31,7 @@ const App = () => {
             <Route path="/connexion" component={LoginPage} />
             <Route path="/registration" component={RegisterPage} />
             <Route path="/voitures/:id" component={VoiturePage} />
+            <PrivateRoute path="/voitures" component={VoitureForm} />
             <Route path="/" component={VoituresPage} />
           </Switch>
         </div>

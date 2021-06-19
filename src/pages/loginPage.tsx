@@ -62,7 +62,7 @@ const LoginPage = ({ history }: RouteComponentProps) => {
         />
         <div className="row">
           <div className="col-md-6">
-            <button type="submit" className="btn btn-block btn-primary">Envoyer</button>
+            <button type="submit" className="btn btn-block btn-primary">Connexion</button>
           </div>
           <div className="col-md-6">
             <Link to="/registration" className="btn btn-block btn-success">Créer une compte</Link>

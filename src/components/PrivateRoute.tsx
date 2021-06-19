@@ -1,10 +1,10 @@
-import React, { ComponentType, useContext } from "react";
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 interface Props {
   path: string,
-  component: ComponentType
+  component: any
 }
 
 const PrivateRoute = ({ path, component }: Props) => {
@@ -13,7 +13,7 @@ const PrivateRoute = ({ path, component }: Props) => {
   return isAuthenticated ? (
     <Route path={path} component={component} />
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/connexion" />
   );
 };
 

@@ -3,8 +3,8 @@ import React from "react";
 interface Props {
   name: string;
   label: string;
-  value: string;
-  placeholder: string;
+  value: string|number;
+  placeholder?: string;
   type: string;
   error: string;
   onChange: (e: any) => void;

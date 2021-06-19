@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { VOITURE_URL } from "./api"
 
-function findAll() {
+function findAll(page: number = 0) {
   return axios
-    .get(`${VOITURE_URL}`)
+    .get(`${VOITURE_URL}/?page=${page}`)
     .then(resp => resp.data)
 }
 
@@ -13,7 +13,14 @@ function getVoiture(id: string) {
     .then(resp => resp.data)
 }
 
+function create(data: any) {
+  return axios
+    .post(`${VOITURE_URL}`, data)
+    .then(resp => resp.data);
+}
+
 export const voitureService = {
   findAll,
-  getVoiture
+  getVoiture,
+  create
 }
